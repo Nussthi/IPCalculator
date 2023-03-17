@@ -54,8 +54,31 @@ class Converter:
             quotient = division_result
 
         return binary_list
+    
+    def convert_to_decimal(self,binary_number_list):
+        '''Convert a binary list to a decimal integer
+        
+        Parameters:
+            - binary_number_list (list of integers) : the list to convert
+        
+        Returns:
+            - number_decimal (integer) : the binary number converted in decimal
+        '''
+        #We get the list length so we now the bit power
+        power = len(binary_number_list)-1
+        #Variable that will contain the number converted
+        number_decimal = 0
 
-    def binary_byte_format(self, binary_number):
+        for bit in binary_number_list:
+            #We multiply the bit and the power of his index
+            number_decimal += int(bit)*(2**power)
+            power -= 1
+
+        return number_decimal
+
+
+
+    def binary_byte_format(self, binary_number_list):
         '''Format a binary list to match a byte format
         
         Parameters:
@@ -65,7 +88,7 @@ class Converter:
             - binary_byte (list of integers) : with a length of 8
         '''
 
-        binary_byte = binary_number
+        binary_byte = binary_number_list
 
         #As long as the list doesn't match a length of 8 (bit)
         #We had 0 at the begining of it to have a byte format
@@ -75,11 +98,18 @@ class Converter:
 
         return binary_byte
     
-    def list_to_string(self, list):
-        '''Convert a list to a string'''
+    def list_to_string(self, list_to_convert):
+        '''Convert a list to a string
+        
+        Parameters:
+            - list_to_convert (list) : the list to convert into a string
+        
+        Returns:
+            - string_list (string)
+        '''
         string_list = ""
 
-        for index in list:
+        for index in list_to_convert:
             string_list += str(index)
 
         return string_list
