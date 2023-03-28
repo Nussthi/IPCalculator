@@ -1,5 +1,4 @@
 from ip import IPAdress
-from baseconverter import Converter
 from ipcalculator import IPCalculator
 
 def main():
@@ -13,11 +12,6 @@ def main():
     first_adress = IPAdress()
     last_adress = IPAdress()
     usable_adresses = 0
-
-    print("\n----IP et masque----")
-    ip_adress.display_decimal()
-    mask_adress.display_decimal()
-    print("--------------------")
 
     ip_adress.ip_to_binary()
     mask_adress.ip_to_binary()
@@ -36,26 +30,16 @@ def main():
     first_adress = ip_calculator.get_first_adress(netid_adress)
     last_adress = ip_calculator.get_last_adress(broadcast_adress)
 
-    print("----Net ID----")
-    netid_adress.display_decimal()
-    print("--------------")
-    
-    print("----Wildcard Mask----")
-    wildcard_adress.display_decimal()
-    print("--------------")
-
-    print("----Broadcast adress----")
-    broadcast_adress.display_decimal()
-    print("--------------")
-
-    print("----Usable adresses----")
-    print(usable_adresses)
-    print("--------------")
-
-    print("----First and last adresses----")
-    first_adress.display_decimal()
-    last_adress.display_decimal()
-    print("-------------------------------")
+    print("\n----------------Result----------------")
+    print("Host ID              : ", ip_adress.display_decimal())
+    print("Subnet Mask          : ", mask_adress.display_decimal())
+    print("Net ID               : ", netid_adress.display_decimal())
+    print("Wildcard             : ", wildcard_adress.display_decimal())
+    print("Broadcast            : ", broadcast_adress.display_decimal())
+    print("Usable adresses      : ", usable_adresses)
+    print("First adress         : ", first_adress.display_decimal())
+    print("Last adress          : ", last_adress.display_decimal())
+    print("--------------------------------------\n")
 
 if __name__ == "__main__":
     main()
