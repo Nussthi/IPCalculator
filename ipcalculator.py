@@ -13,14 +13,6 @@ class IPCalculator:
     
     '''
 
-    def __init__(self):
-        '''Constructs all the necessary attributes for the Converter object
-
-        Parameters
-            None
-        '''
-        pass
-
     def get_netid(self, ip_adress, mask_adress):
         '''Create an IPAdress object with the netID adress values
         
@@ -153,6 +145,7 @@ class IPCalculator:
         '''
         first_adress = copy.deepcopy(netid_adress)
 
+        #Just adding 1 on the last byte
         first_adress.byte4 += 1
 
         return first_adress
@@ -169,6 +162,7 @@ class IPCalculator:
         '''
         last_adress = copy.deepcopy(broadcast_adress)
 
+        #Just removing 1 on the last byte
         last_adress.byte4 -= 1
 
         return last_adress
