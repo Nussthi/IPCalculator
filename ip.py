@@ -63,7 +63,7 @@ class IPAdress:
 
     def display_decimal(self):
         '''Display the the object IP adress in decimal on the terminal'''
-        print(f"{self.byte1}.{self.byte2}.{self.byte3}.{self.byte4}")
+        return f"{self.byte1}.{self.byte2}.{self.byte3}.{self.byte4}"
 
     def display_binary(self):
         '''Diplay the object IP adress in binary on the terminal'''
