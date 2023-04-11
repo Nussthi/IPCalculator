@@ -1,4 +1,4 @@
-from baseconverter import Converter
+from models.baseconverter import Converter
 
 class IPAdress:
     '''Class to create IPAdresses
@@ -67,7 +67,7 @@ class IPAdress:
 
     def display_binary(self):
         '''Diplay the object IP adress in binary on the terminal'''
-        print(f"{self.byte1_bin}.{self.byte2_bin}.{self.byte3_bin}.{self.byte4_bin}")
+        return f"{self.byte1_bin}.{self.byte2_bin}.{self.byte3_bin}.{self.byte4_bin}"
 
     def ip_to_binary(self):
         '''Convert the ip byte in decimal into byte in binary'''

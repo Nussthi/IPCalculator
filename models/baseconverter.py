@@ -76,8 +76,6 @@ class Converter:
 
         return number_decimal
 
-
-
     def binary_byte_format(self, binary_number_list):
         '''Format a binary list to match a byte format
         

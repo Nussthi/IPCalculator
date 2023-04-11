@@ -1,5 +1,7 @@
 import copy
-from ip import IPAdress
+from models.ip import IPAdress
+from models.inputcleaning import InputCleaning
+from views.view import View
 
 class IPCalculator:
     '''Class to make calculation with IP adresses
@@ -12,6 +14,117 @@ class IPCalculator:
             Returns an the netID as an IPAdress object
     
     '''
+
+    def get_IPadress(self, ip_name):
+        '''Ask the IP adress to the user
+        
+        Parameters:
+            - ip_name (string): determine the sentence to write on the screen
+
+        Returns:
+            - bytes_list (list of integers): the list containing the 4 bytes       
+        '''
+        input_cleaner = InputCleaning()
+        input_view = View()
+
+        #Determine which sentence to print 
+        if ip_name == "hostid":
+            ip_adress = input_view.ask_ip_adress()
+        elif ip_name == "mask":
+            ip_adress = input_view.ask_subnet_mask()
+
+        #Retrieving the 4 bytes of the IP adress
+        try:
+            bytes_list = input_cleaner.byteParser(ip_adress)
+        except Exception:
+            print("IP adress format should be : xxx.xxx.xxx.xxx")
+            return None
+
+        #Checking if the IP contains only digital values
+        try:
+            input_cleaner.byteValueCheck(bytes_list)
+        except Exception:
+            print("IP adress contains a character other than an integer")
+            return None
+
+        bytes_list = input_cleaner.bytes_list_to_string(bytes_list)
+
+        return bytes_list
+        
+    def assign_ip_bytes(self, bytes_list):
+        '''Assign the bytes to the IPAdress object
+        
+        Parameters:
+            - bytes_list (list of integers): the list containing the 4 bytes
+
+        Returns:
+            - ip_adress (IPAdress Object): the object with the user IP      
+        '''
+        ip_adress = IPAdress()
+
+        ip_adress.byte1 = bytes_list[0]
+        ip_adress.byte2 = bytes_list[1]
+        ip_adress.byte3 = bytes_list[2]
+        ip_adress.byte4 = bytes_list[3]
+
+        return ip_adress
+
+
+
+    def calculate_ips(self):
+        '''Calculate and show the result on the prompt'''
+
+        while True:
+            hostid_bytes = self.get_IPadress("hostid")
+            if hostid_bytes is not None:
+                break
+
+        while True:
+            mask_bytes = self.get_IPadress("mask")
+            if mask_bytes is not None:
+                break
+
+        hostid_adress = IPAdress()
+        mask_adress = IPAdress()
+
+        hostid_adress = self.assign_ip_bytes(hostid_bytes)
+        mask_adress = self.assign_ip_bytes(mask_bytes)
+        
+        netid_adress = IPAdress()
+        wildcard_adress = IPAdress()
+        broadcast_adress = IPAdress()
+        first_adress = IPAdress()
+        last_adress = IPAdress()
+        usable_adresses = 0
+
+        hostid_adress.ip_to_binary()
+        mask_adress.ip_to_binary()
+
+        usable_adresses = self.get_number_adresses(mask_adress)
+
+        netid_adress = self.get_netid(hostid_adress,mask_adress)
+        netid_adress.binary_ip_to_decimal()
+
+        wildcard_adress = self.get_wildcard_mask(mask_adress)
+        wildcard_adress.binary_ip_to_decimal()
+
+        broadcast_adress = self.get_broadcast(netid_adress, mask_adress)
+        broadcast_adress.binary_ip_to_decimal()
+
+        first_adress = self.get_first_adress(netid_adress)
+        last_adress = self.get_last_adress(broadcast_adress)
+
+        print("\n----------------Result----------------")
+        print("Host ID              : ", hostid_adress.display_decimal())
+        print("Subnet Mask          : ", mask_adress.display_decimal())
+        print("Net ID               : ", netid_adress.display_decimal())
+        print("Wildcard             : ", wildcard_adress.display_decimal())
+        print("Broadcast            : ", broadcast_adress.display_decimal())
+        print("Usable adresses      : ", usable_adresses)
+        print("First adress         : ", first_adress.display_decimal())
+        print("Last adress          : ", last_adress.display_decimal())
+        print("--------------------------------------\n")
+
 
     def get_netid(self, ip_adress, mask_adress):
         '''Create an IPAdress object with the netID adress values
