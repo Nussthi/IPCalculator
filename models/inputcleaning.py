@@ -56,17 +56,3 @@ class InputCleaning:
 
         return bytes_list_int
 
-'''
-cleaner = InputCleaning()
-
-try:
-    bytess = cleaner.byteParser("192.168.1.200")
-    print(bytess)
-except Exception:
-    print("IP adress format should be : xxx.xxx.xxx.xxx")
-
-try:
-    cleaner.byteValueCheck(bytess)
-except Exception:
-    print("IP adress contains a character other than an integer")
-'''

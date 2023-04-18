@@ -1,9 +1,9 @@
-from controllers.ipcalculator import IPCalculator
+from controllers.ipcalculatorcontroller import IPCalculatorController
 
 def main():
-    ip_calculator = IPCalculator()
+    ip_calculator = IPCalculatorController()
     
-    ip_calculator.calculate_ips()
+    ip_calculator.view.run()
     
 
 if __name__ == "__main__":
