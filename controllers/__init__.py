@@ -1,1 +1,1 @@
-__all__ = ["ipcalculatorcontroller"]
+__all__ = ["ipcalculator"]
